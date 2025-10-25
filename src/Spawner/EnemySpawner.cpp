@@ -8,14 +8,14 @@ EnemySpawner::~EnemySpawner()
 {
 
 }
-void EnemySpawner::SetupEnemy(SDL_Renderer* myRenderer)
+void EnemySpawner::SetupEnemy(SDL_Renderer* myRenderer,int WindWidth, int WindHeight)
 {
 	GameEntity* enemy = new GameEntity(myRenderer,"./images/EvilShip.bmp");
 
 	if (enemy != nullptr)
 	{
-		int x = 1920;
-		int y = std::rand() % (970 - EnemySize);
+		int x = WindWidth;
+		int y = std::rand() % (WindHeight - EnemySize);
 		enemy->GetTextureLoader()->SetRectValues(x, y, EnemySize, EnemySize);
 		MyEnemy.push_back(enemy);
 	}

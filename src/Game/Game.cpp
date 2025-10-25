@@ -52,7 +52,7 @@ void Game::InitGame()
 	enemySpawner.reset(new EnemySpawner());
 	if (enemySpawner != nullptr)
 	{
-		enemySpawner->SetupEnemy(myRenderer.get());
+		enemySpawner->SetupEnemy(myRenderer.get(),WindWidth,WindHeight);
 	}
 
 	IsRunning = true;
@@ -218,6 +218,7 @@ void Game::BulletEnemyCollide()
 
 				if (bullet->IsColliding(enemy))
 				{
+					delete enemy;
 					printf("Enemy Collide With Bullets");
 					enemies.erase(enemies.begin() + i);
 					--i;
@@ -225,6 +226,7 @@ void Game::BulletEnemyCollide()
 					delete bullet;
 					myPlayer->Bulllets.erase(myPlayer->Bulllets.begin() + j);
 					--j;
+
 					Score += 1;
 					break;
 				}
