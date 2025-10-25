@@ -1,16 +1,21 @@
-This is a Galaxy space shooter game I built using SDL2 + GLM + C++.
+Galaxy Space Shooter
 
-You control a PlayerShip that can move up, down, left, right and shoot laser balls at enemies.
+This is a Galaxy Space Shooter game built using SDL2, GLM, and C++.
 
-Current Features:
+Take control of your PlayerShip to navigate the galaxy, avoid enemies, and destroy them with laser shots.
 
-Player movement
+->Current Features
 
-Shooting lasers
+* Player movement (up, down, left, right)
 
-Enemy spawner
+* Shooting laser balls at enemies
 
-Enemy collision detection
+* Enemy spawner system
 
-Coming Soon:
-More cool stuff 
+* Enemy collision detection
+
+* Score System (+1 for each enemy ship destroyed by player bullets , -1 if an enemy ship reaches the player’s territory)
+
+More Stuff Coming Soon-----------------------------------------
+
+
