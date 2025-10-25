@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Spawner\EnemySpawner.cpp" />
     <ClCompile Include="src\Player\PlayerShip.cpp" />
     <ClCompile Include="src\Entity\GameEntity.cpp" />
     <ClCompile Include="libs\glm\detail\glm.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="src\Manager\Surface\SurfaceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Spawner\EnemySpawner.h" />
     <ClInclude Include="src\Player\PlayerShip.h" />
     <ClInclude Include="src\Entity\GameEntity.h" />
     <ClInclude Include="libs\glm\common.hpp" />

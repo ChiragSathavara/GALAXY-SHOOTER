@@ -33,7 +33,10 @@ void TextureLoader::SetRectValues(int x, int y, int w, int h)
 	myRect.w = w;
 	myRect.h = h;
 }
-
+SDL_Rect& TextureLoader::GetRect()
+{
+	return  myRect;
+}
 int TextureLoader::GetPosX()
 {
 	return myRect.x;
@@ -50,6 +53,14 @@ void TextureLoader::SetPosX(int X)
 void TextureLoader::SetPosY(int Y)
 {
 	myRect.y = Y;
+}
+int  TextureLoader::GetWidth()
+{
+	return myRect.w;
+}
+int  TextureLoader::GetHeight()
+{
+	return myRect.h;
 }
 void TextureLoader::Render(SDL_Renderer* myRen)
 {

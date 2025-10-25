@@ -4,6 +4,7 @@
 #include <memory>
 #include "SDL2/include/SDL.h"
 #include "Player/PlayerShip.h"
+#include "Spawner/EnemySpawner.h"
 
 const int FPS = 60;
 const float MIL_SEC_FRAME = 1000.0f / FPS;
@@ -15,6 +16,7 @@ private:
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>myWindow;
 	std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)>myRenderer;
 	std::unique_ptr<PlayerShip>myPlayer;
+	std::unique_ptr<EnemySpawner> enemySpawner;
 
 	Uint32 Ticks;
 	float MIL_SEC_PREVIOUS_FRAME = 0;
@@ -34,5 +36,9 @@ public:
    void Run();
    void Render();
    void Destroy();
+   void EnemySpawn();
+   bool SetCollisionDetection(GameEntity* A, GameEntity* B);
+   void PlayerEnemyCollisionEnabled();
+   void BulletEnemyCollide();
 };
 

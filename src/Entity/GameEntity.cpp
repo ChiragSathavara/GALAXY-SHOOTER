@@ -25,3 +25,10 @@ void GameEntity::Render(SDL_Renderer* myRen)
 		my_Texture->Render(myRen);
 	}
 }
+
+bool GameEntity::IsColliding(GameEntity* Obj)
+{
+	return SDL_HasIntersection(&my_Texture->GetRect(),&Obj->GetTextureLoader()->GetRect());
+}
+
+

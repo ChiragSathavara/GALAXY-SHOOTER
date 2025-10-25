@@ -6,6 +6,8 @@ PlayerShip::PlayerShip():myPlayer(nullptr)
 	MoveDown = false;
 	MoveRight = false;
 	MoveLeft = false;
+	IsPlayerAlive = true;
+	
 }
 
 PlayerShip::~PlayerShip()
@@ -14,77 +16,98 @@ PlayerShip::~PlayerShip()
 }
 void PlayerShip::IsKeyUp(SDL_Keycode& Key)
 {
-	switch (Key)
+	if (IsPlayerAlive == true)
 	{
-	case SDLK_w: MoveUp = false; break;
-	case SDLK_s: MoveDown = false; break;
-	case SDLK_d: MoveRight = false; break;
-	case SDLK_a: MoveLeft = false; break;
+		switch (Key)
+		{
+		case SDLK_w: MoveUp = false; break;
+		case SDLK_s: MoveDown = false; break;
+		case SDLK_d: MoveRight = false; break;
+		case SDLK_a: MoveLeft = false; break;
+		}
 	}
 }
 void PlayerShip::IsKeyDown(SDL_Keycode& Key)
 {
-	switch (Key)
+	if (IsPlayerAlive == true)
 	{
-	case SDLK_w: MoveUp = true; break;
-	case SDLK_s: MoveDown = true; break;
-	case SDLK_d: MoveRight = true; break;
-	case SDLK_a: MoveLeft = true; break;
+		switch (Key)
+		{
+		case SDLK_w: MoveUp = true; break;
+		case SDLK_s: MoveDown = true; break;
+		case SDLK_d: MoveRight = true; break;
+		case SDLK_a: MoveLeft = true; break;
+		}
 	}
 }
 void PlayerShip::Update(float DeltaTime, int WindWidth, int WindHeight)
 {
-    windwidth = WindWidth;
+	if (IsPlayerAlive == true)
+	{
+		windwidth = WindWidth;
 
-	PlayerMovement(DeltaTime);
-	if (PlayerPosX < 0) { PlayerPosX = 0; }
-	if (PlayerPosY < 0) { PlayerPosY = 0; }
-	if (PlayerPosX + PlayerSize > WindWidth) { PlayerPosX = WindWidth - PlayerSize; }
-	if (PlayerPosY + PlayerSize > WindHeight) { PlayerPosY = WindHeight - PlayerSize; }
+		PlayerMovement(DeltaTime);
+		if (PlayerPosX < 0) { PlayerPosX = 0; }
+		if (PlayerPosY < 0) { PlayerPosY = 0; }
+		if (PlayerPosX + PlayerSize > WindWidth) { PlayerPosX = WindWidth - PlayerSize; }
+		if (PlayerPosY + PlayerSize > WindHeight) { PlayerPosY = WindHeight - PlayerSize; }
 
-	myPlayer->SetRectValue(PlayerPosX, PlayerPosY, 100, 100);
+		myPlayer->SetRectValue(PlayerPosX, PlayerPosY, 100, 100);
+	}
 	
 }
 void PlayerShip::PlayerMovement(float DeltaTime)
 {
-	
-	if (MoveUp == true) { PlayerPosY -= PlayerSpeed * DeltaTime; }
-	if (MoveDown == true) { PlayerPosY += PlayerSpeed * DeltaTime; }
-	if (MoveRight == true) { PlayerPosX += PlayerSpeed * DeltaTime; }
-	if (MoveLeft == true) { PlayerPosX -= PlayerSpeed * DeltaTime; }
+	if (IsPlayerAlive == true)
+	{
+		if (MoveUp == true) { PlayerPosY -= PlayerSpeed * DeltaTime; }
+		if (MoveDown == true) { PlayerPosY += PlayerSpeed * DeltaTime; }
+		if (MoveRight == true) { PlayerPosX += PlayerSpeed * DeltaTime; }
+		if (MoveLeft == true) { PlayerPosX -= PlayerSpeed * DeltaTime; }
+	}
 }
 
 void PlayerShip::SetupBullet(SDL_Renderer* myRen)
 {
-	GameEntity* bullet = new GameEntity(myRen, "./images/FireBall.bmp");
+	if (IsPlayerAlive == true)
+	{
+		GameEntity* bullet = new GameEntity(myRen, "./images/FireBall.bmp");
 
-	int pX = PlayerPosX + SpawnBulletPosX;
-	int pY = PlayerPosY + SpawnBulletPosY;
+		int pX = PlayerPosX + SpawnBulletPosX;
+		int pY = PlayerPosY + SpawnBulletPosY;
 
-	bullet->SetRectValue(pX, pY, BulletSize, BulletSize);
+		bullet->SetRectValue(pX, pY, BulletSize, BulletSize);
 
-	Bulllets.push_back(bullet);
+		Bulllets.push_back(bullet);
 
-	std::cout << "Bullet Counter :- " << Bulllets.size() << std::endl;
+		std::cout << "Bullet Counter :- " << Bulllets.size() << std::endl;
+	}
 }
 
 void PlayerShip::FireBullets(float DeltaTime)
 {
-	for (int i = 0; i < Bulllets.size(); ++i)
+	if (IsPlayerAlive == true)
 	{
-		GameEntity* bullet = Bulllets[i];
-		int px = bullet->GetTextureLoader()->GetPosX();
-		px += static_cast<int>(BulletSpeed * DeltaTime);
-		bullet->GetTextureLoader()->SetPosX(px);
-
-	
-		if (px > windwidth)
+		for (int i = 0; i < Bulllets.size(); ++i)
 		{
-			delete bullet;
-			Bulllets.erase(Bulllets.begin() + i);
-			i--;
+			GameEntity* bullet = Bulllets[i];
+			int px = bullet->GetTextureLoader()->GetPosX();
+			px += static_cast<int>(BulletSpeed * DeltaTime);
+			bullet->GetTextureLoader()->SetPosX(px);
+
+
+			if (px > windwidth)
+			{
+				delete bullet;
+				Bulllets.erase(Bulllets.begin() + i);
+				i--;
+			}
 		}
 	}
+}
+GameEntity* PlayerShip::GetPlayerShip()
+{
+	return myPlayer.get();
 }
 void PlayerShip::Load(SDL_Renderer* myRen, std::string address)
 {
@@ -93,17 +116,30 @@ void PlayerShip::Load(SDL_Renderer* myRen, std::string address)
 
 void PlayerShip::SetRectValue(int x, int y, int w, int h)
 {
-	myPlayer->SetRectValue(x, y, w, h);
+	if (IsPlayerAlive == true)
+	{
+		myPlayer->SetRectValue(x, y, w, h);
+	}
 }
 
 void PlayerShip::Render(SDL_Renderer* myRen)
 {
-	myPlayer->Render(myRen);
-	for (auto myBullet : Bulllets)
+	if (IsPlayerAlive == true)
 	{
-		if (myBullet != nullptr)
+		myPlayer->Render(myRen);
+		for (auto myBullet : Bulllets)
 		{
-			myBullet->Render(myRen);
+			if (myBullet != nullptr)
+			{
+				myBullet->Render(myRen);
+			}
 		}
+	}
+}
+GameEntity* PlayerShip::GetBullet()
+{
+	for (auto mybullet : Bulllets)
+	{
+		return mybullet;
 	}
 }

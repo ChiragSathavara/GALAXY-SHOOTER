@@ -18,7 +18,10 @@ public:
 
    int GetPosX();
    int GetPosY();
+   int GetWidth();
+   int GetHeight();
 
+   SDL_Rect& GetRect();
 
    void Render(SDL_Renderer* myRen);
 private:

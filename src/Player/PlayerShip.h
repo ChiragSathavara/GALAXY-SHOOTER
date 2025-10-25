@@ -10,6 +10,8 @@ public:
 	PlayerShip();
    ~PlayerShip();
 
+   bool IsPlayerAlive;
+
    void Load(SDL_Renderer* myRen, std::string address);
    void SetRectValue(int x, int y, int w, int h);
    void Render(SDL_Renderer* myRen);
@@ -25,11 +27,17 @@ public:
 
    void FireBullets(float DeltaTime);
 
+   GameEntity* GetBullet();
+
+   GameEntity* GetPlayerShip();
+
+   std::vector<GameEntity*> Bulllets;
+
 private:
 
 	std::unique_ptr<GameEntity>myPlayer;
 
-	std::vector<GameEntity*> Bulllets;
+	
 	
 	bool MoveUp, MoveDown , MoveRight, MoveLeft;
 	

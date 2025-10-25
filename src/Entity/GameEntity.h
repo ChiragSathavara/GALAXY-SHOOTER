@@ -14,7 +14,7 @@ public:
    
    TextureLoader* GetTextureLoader();
    void Render(SDL_Renderer* myRen);
-
+   bool IsColliding(GameEntity* Obj);
 
 private:
 
