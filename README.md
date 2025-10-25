@@ -8,9 +8,11 @@ Player movement
 
 Shooting lasers
 
+Enemy spawner
+
 🚀 Coming Soon:
 
-Enemy spawner
+
 
 Enemy collision detection
 
