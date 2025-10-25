@@ -11,7 +11,7 @@ public:
    ~EnemySpawner();
 
    void SetupEnemy(SDL_Renderer* myRenderer);
-   void MoveEnemy(float DeltaTime,SDL_Renderer* myRen);
+   void MoveEnemy(float DeltaTime,SDL_Renderer* myRen, unsigned int& Score);
    void Render(SDL_Renderer* myRen);
    
 

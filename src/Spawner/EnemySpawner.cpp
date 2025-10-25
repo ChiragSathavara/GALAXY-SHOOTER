@@ -28,7 +28,7 @@ void EnemySpawner::Render(SDL_Renderer* myRen)
 		enemy->Render(myRen);
 	}
 }
-void EnemySpawner::MoveEnemy(float DeltaTime,SDL_Renderer* myRen)
+void EnemySpawner::MoveEnemy(float DeltaTime,SDL_Renderer* myRen,unsigned int& Score)
 {
 	SpawnTime += DeltaTime;
 
@@ -51,6 +51,15 @@ void EnemySpawner::MoveEnemy(float DeltaTime,SDL_Renderer* myRen)
 			}
 			else if(x + EnemySize < 0)
 			{
+				if (Score <= 0)
+				{
+					Score = 0;
+				}
+				else 
+				{
+					Score -= 1;
+				}
+				
 				printf("Enemy removed! Total enemies before removal: %zu\n", MyEnemy.size());
 				MyEnemy.erase(MyEnemy.begin() + i);
 				--i;

@@ -1,7 +1,7 @@
 #include "Game.h"
 
 
-Game::Game():myWindow(nullptr,SDL_DestroyWindow),myRenderer(nullptr,SDL_DestroyRenderer),myPlayer(nullptr), WindWidth(800), WindHeight(300),Ticks(0),enemySpawner(nullptr)
+Game::Game():myWindow(nullptr,SDL_DestroyWindow),myRenderer(nullptr,SDL_DestroyRenderer),myPlayer(nullptr), WindWidth(800), WindHeight(300),Ticks(0),enemySpawner(nullptr), Score_M(nullptr)
 {
 	IsRunning = false;
 }
@@ -39,10 +39,21 @@ void Game::InitGame()
 	if (myPlayer != nullptr && myPlayer->IsPlayerAlive == true)
 	{
 		myPlayer->Load(myRenderer.get(), "./images/SpaceShip.bmp");
-		myPlayer->SetRectValue(200, 500, 100, 100);
+		myPlayer->SetRectValue(200, 500, Size, Size);
 	}
+
+	Score_M.reset(new ScoreManager("./font/Alan_Sans/static/AlanSans-Regular.ttf", FontSize));
+	if (Score_M != nullptr)
+	{
+		Score_M->LoadFont(myRenderer.get(),Score);
+		Score_M->SetRectValues(960,0, 35, 70);
+	}
+
 	enemySpawner.reset(new EnemySpawner());
-	enemySpawner->SetupEnemy(myRenderer.get());
+	if (enemySpawner != nullptr)
+	{
+		enemySpawner->SetupEnemy(myRenderer.get());
+	}
 
 	IsRunning = true;
 }
@@ -121,19 +132,22 @@ void Game::Update()
 	{
 		EnemySpawn();
 	}
+
 	BulletEnemyCollide();
 	PlayerEnemyCollisionEnabled();
-	
+	Score_M->LoadFont(myRenderer.get(), Score);
 
 }
 void Game::EnemySpawn()
 {
 	if (enemySpawner != nullptr)
 	{
-		enemySpawner->MoveEnemy(DeltaTime, myRenderer.get());
+		enemySpawner->MoveEnemy(DeltaTime, myRenderer.get(),Score);
 		SDL_Delay(5);
 	}
 }
+
+
 bool Game::SetCollisionDetection(GameEntity* A, GameEntity* B)
 {
 	if (!A || !B || !A->GetTextureLoader() || !B->GetTextureLoader())
@@ -160,6 +174,8 @@ bool Game::SetCollisionDetection(GameEntity* A, GameEntity* B)
 	}
 	return false;
 }
+
+
 void Game::PlayerEnemyCollisionEnabled()
 {
 	if (myPlayer != nullptr && enemySpawner != nullptr)
@@ -209,6 +225,7 @@ void Game::BulletEnemyCollide()
 					delete bullet;
 					myPlayer->Bulllets.erase(myPlayer->Bulllets.begin() + j);
 					--j;
+					Score += 1;
 					break;
 				}
 			}
@@ -241,10 +258,17 @@ void Game::Render()
 				myPlayer->Render(myRenderer.get());
 			}
 		}
+		
+		if (Score_M != nullptr)
+		{
+			Score_M->Render(myRenderer.get());
+		}
+
 		if (enemySpawner != nullptr)
 		{
 			enemySpawner->Render(myRenderer.get());
 		}
+
 		SDL_RenderPresent(myRenderer.get());
 	}
 }
