@@ -16,15 +16,6 @@ Take control of your PlayerShip to navigate the galaxy, avoid enemies, and destr
 
 * Score System (+1 for each enemy ship destroyed by player bullets , -1 if an enemy ship reaches the player’s territory)
 
+More Stuff Coming Soon-----------------------------------------
 
 
-Coming Soon-----------------------------------------
-
-Additional enemy types and behaviors
-
-Power-ups and upgrades
-
-Enhanced scoring and leaderboard system
-
-New levels and challenges
-----------------------------------------------------
