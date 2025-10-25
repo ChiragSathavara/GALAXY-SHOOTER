@@ -10,10 +10,12 @@ Shooting lasers
 
 Enemy spawner
 
+Enemy collision detection
+
 🚀 Coming Soon:
 
 
 
-Enemy collision detection
+
 
 More cool stuff 😎
