@@ -28,13 +28,13 @@ void EnemySpawner::Render(SDL_Renderer* myRen)
 		enemy->Render(myRen);
 	}
 }
-void EnemySpawner::MoveEnemy(float DeltaTime,SDL_Renderer* myRen,unsigned int& Score)
+void EnemySpawner::MoveEnemy(float DeltaTime,SDL_Renderer* myRen,unsigned int& Score, int WindWidth, int WindHeight)
 {
 	SpawnTime += DeltaTime;
 
 	if (SpawnTime >= SpawnInterval)
 	{
-		SetupEnemy(myRen);
+		SetupEnemy(myRen, WindWidth, WindHeight);
 		SpawnTime = 0.0f;
 	}
 

@@ -116,7 +116,7 @@ void Game::Update()
 	}
 
 	Ticks = SDL_GetTicks();
-	DeltaTime = (Ticks - MIL_SEC_PREVIOUS_FRAME) / 1000;
+	DeltaTime = (Ticks - MIL_SEC_PREVIOUS_FRAME) / 1000.f;
 	MIL_SEC_PREVIOUS_FRAME = Ticks;
 
 	if (myPlayer != nullptr)
@@ -142,8 +142,8 @@ void Game::EnemySpawn()
 {
 	if (enemySpawner != nullptr)
 	{
-		enemySpawner->MoveEnemy(DeltaTime, myRenderer.get(),Score);
-		SDL_Delay(5);
+		enemySpawner->MoveEnemy(DeltaTime, myRenderer.get(),Score,WindWidth,WindHeight);
+
 	}
 }
 
@@ -205,19 +205,21 @@ void Game::BulletEnemyCollide()
 
 		for (int i = 0; i < enemies.size(); ++i)
 		{
-			auto& enemy = enemies[i];
+			GameEntity* enemy = enemies[i];
 
 			if (enemy == nullptr)
 				continue;
 
 			for (int j = 0; j < myPlayer->Bulllets.size(); ++j)
 			{
-				auto& bullet = myPlayer->Bulllets[j];
+				GameEntity* bullet = myPlayer->Bulllets[j];
+
 				if (bullet == nullptr)
 					continue;
 
 				if (bullet->IsColliding(enemy))
 				{
+	
 					delete enemy;
 					printf("Enemy Collide With Bullets");
 					enemies.erase(enemies.begin() + i);
