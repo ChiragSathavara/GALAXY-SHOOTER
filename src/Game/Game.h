@@ -19,6 +19,7 @@ private:
 	std::unique_ptr<PlayerShip>myPlayer;
 	std::unique_ptr<EnemySpawner> enemySpawner;
 	std::unique_ptr<GameEntity>Galaxy;
+	std::unique_ptr<GameEntity>Galaxy2;
 	std::unique_ptr<ScoreManager>Score_M;
 	std::unique_ptr<ScoreManager>GameOver_M;
 
@@ -39,6 +40,9 @@ public:
    int FontSize = 32;
    int Size = 100;
 
+   //ParallaxScrolling
+   int Galaxy1x = 0;
+   int Galaxy2x = -1919;
 
    void InitGame();
    void ProcessInput();
@@ -50,5 +54,7 @@ public:
    bool SetCollisionDetection(GameEntity* A, GameEntity* B);
    void PlayerEnemyCollisionEnabled();
    void BulletEnemyCollide();
+
+   void ParallaxScrolling();
 };
 

@@ -1,7 +1,7 @@
 #include "Game.h"
 
 
-Game::Game():myWindow(nullptr,SDL_DestroyWindow),myRenderer(nullptr,SDL_DestroyRenderer), Galaxy(nullptr),
+Game::Game():myWindow(nullptr,SDL_DestroyWindow),myRenderer(nullptr,SDL_DestroyRenderer), Galaxy(nullptr), Galaxy2(nullptr),
 myPlayer(nullptr), WindWidth(800), WindHeight(300),Ticks(0),enemySpawner(nullptr), Score_M(nullptr), GameOver_M(nullptr)
 {
 	IsRunning = false;
@@ -43,6 +43,13 @@ void Game::InitGame()
 		return;
 	}
 	Galaxy->SetRectValue(0, 0, WindWidth, WindHeight);
+
+	Galaxy2.reset(new GameEntity(myRenderer.get(), "./images/StarGal.bmp"));
+	if (Galaxy2 == nullptr)
+	{
+		return;
+	}
+	Galaxy2->SetRectValue(-1919, 0, WindWidth, WindHeight);
 
 	myPlayer.reset(new PlayerShip());
 	if (myPlayer != nullptr && myPlayer->IsPlayerAlive == true)
@@ -153,6 +160,7 @@ void Game::Update()
 	BulletEnemyCollide();
 	PlayerEnemyCollisionEnabled();
 	Score_M->LoadFont(myRenderer.get(), Score);
+	ParallaxScrolling();
 
 }
 void Game::EnemySpawn()
@@ -254,6 +262,26 @@ void Game::BulletEnemyCollide()
 
 }
 
+void Game::ParallaxScrolling()
+{
+	if (Galaxy != nullptr && Galaxy2 != nullptr)
+	{
+		Galaxy.get()->GetTextureLoader()->SetPosX(Galaxy1x += 4);
+		Galaxy2.get()->GetTextureLoader()->SetPosX(Galaxy2x += 4);
+		
+		if (Galaxy.get()->GetTextureLoader()->GetPosX() > WindWidth)
+		{
+			Galaxy1x = -1919;
+			std::cout << "Galaxy 1 reset scrolling" << std::endl;
+		}
+		if (Galaxy2.get()->GetTextureLoader()->GetPosX() > WindWidth)
+		{
+			Galaxy2x = -1919;
+			std::cout << "Galaxy 2 reset scrolling" << std::endl;
+		}
+	}
+}
+
 
 void Game::Run()
 {
@@ -269,11 +297,15 @@ void Game::Render()
 {
 	if (myRenderer != nullptr)
 	{
-		SDL_SetRenderDrawColor(myRenderer.get(), 21, 21, 21, 255);
+		SDL_SetRenderDrawColor(myRenderer.get(), 0, 0, 0, 255);
 		SDL_RenderClear(myRenderer.get());
 		if (Galaxy != nullptr)
 		{
 			Galaxy->Render(myRenderer.get());
+		}
+		if (Galaxy2 != nullptr)
+		{
+			Galaxy2->Render(myRenderer.get());
 		}
 		if (myPlayer != nullptr)
 		{
