@@ -16,12 +16,9 @@ Current Features-----------------------------------------------
 
 * Score System (+1 for each enemy ship destroyed by player bullets , -1 if an enemy ship reaches the player’s territory)
   
-* Game-Over and background (Galaxy.bmp)  
+* Game-Over and Parallax Scrolling
 
-* Parallax Scrolling
-   
-
-
+  
 More Stuff Coming Soon-----------------------------------------
 
 
