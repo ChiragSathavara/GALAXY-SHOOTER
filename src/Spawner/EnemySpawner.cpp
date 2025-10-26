@@ -10,7 +10,30 @@ EnemySpawner::~EnemySpawner()
 }
 void EnemySpawner::SetupEnemy(SDL_Renderer* myRenderer,int WindWidth, int WindHeight)
 {
-	GameEntity* enemy = new GameEntity(myRenderer,"./images/EvilShip.bmp");
+	int randomnumber = (std::rand() % 4) + 1;
+	
+	std::string ImageAddress;
+	
+	switch (randomnumber)
+	{
+    	case 1:
+			ImageAddress = "./images/Comet.bmp";
+		break;
+
+		case 2:
+			ImageAddress = "./images/EvilShip.bmp";
+		break;
+
+		case 3:
+			ImageAddress = "./images/greenEvil-Photoroom.bmp";
+		break;
+
+		case 4:
+			ImageAddress = "./images/purpleEvil-Photoroom.bmp";
+		break;
+	}
+
+	GameEntity* enemy = new GameEntity(myRenderer, ImageAddress);
 
 	if (enemy != nullptr)
 	{
