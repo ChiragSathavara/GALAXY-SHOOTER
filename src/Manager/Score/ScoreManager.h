@@ -11,6 +11,7 @@ public:
    ~ScoreManager();
 
    void LoadFont(SDL_Renderer* myRen, unsigned int& Score);
+   void LoadFont(SDL_Renderer* myRen, std::string Text);
    void SetRectValues(int x, int y, int Width, int Height);
    void Render(SDL_Renderer* myRen);
 private:

@@ -44,7 +44,7 @@ private:
 	int PlayerPosX = 200;
 	int PlayerPosY = 500;
 	int PlayerSize = 100;
-	int PlayerSpeed = 200;
+	int PlayerSpeed = 350;
 	int BulletSpeed = 1000;
 	int SpawnBulletPosX = 80;
 	int SpawnBulletPosY = 35;

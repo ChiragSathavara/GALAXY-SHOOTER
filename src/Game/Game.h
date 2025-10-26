@@ -18,7 +18,9 @@ private:
 	std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)>myRenderer;
 	std::unique_ptr<PlayerShip>myPlayer;
 	std::unique_ptr<EnemySpawner> enemySpawner;
+	std::unique_ptr<GameEntity>Galaxy;
 	std::unique_ptr<ScoreManager>Score_M;
+	std::unique_ptr<ScoreManager>GameOver_M;
 
 	Uint32 Ticks;
 	float MIL_SEC_PREVIOUS_FRAME = 0;
@@ -33,8 +35,11 @@ public:
    int WindHeight;
    
    unsigned int Score = 0;
+   std::string GameOver = "GameOver";
    int FontSize = 32;
    int Size = 100;
+
+
    void InitGame();
    void ProcessInput();
    void Update();

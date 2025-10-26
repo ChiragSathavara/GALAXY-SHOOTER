@@ -45,6 +45,20 @@ void ScoreManager::LoadFont(SDL_Renderer* myRen, unsigned int& Score)
 	}
 
 }
+void ScoreManager::LoadFont(SDL_Renderer* myRen, std::string Text)
+{
+	OurSurface.reset((TTF_RenderText_Solid(OurFont, Text.c_str(), {255,255,255})));
+	if (OurSurface == nullptr)
+	{
+		return;
+	}
+
+	OurTexture.reset((SDL_CreateTextureFromSurface(myRen, OurSurface.get())));
+	if (OurTexture == nullptr)
+	{
+		return;
+	}
+}
 void ScoreManager::SetRectValues(int x, int y, int Width, int Height)
 {
 	myrect.x = x;

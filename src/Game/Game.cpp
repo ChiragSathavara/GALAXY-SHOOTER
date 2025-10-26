@@ -1,7 +1,8 @@
 #include "Game.h"
 
 
-Game::Game():myWindow(nullptr,SDL_DestroyWindow),myRenderer(nullptr,SDL_DestroyRenderer),myPlayer(nullptr), WindWidth(800), WindHeight(300),Ticks(0),enemySpawner(nullptr), Score_M(nullptr)
+Game::Game():myWindow(nullptr,SDL_DestroyWindow),myRenderer(nullptr,SDL_DestroyRenderer), Galaxy(nullptr),
+myPlayer(nullptr), WindWidth(800), WindHeight(300),Ticks(0),enemySpawner(nullptr), Score_M(nullptr), GameOver_M(nullptr)
 {
 	IsRunning = false;
 }
@@ -29,11 +30,19 @@ void Game::InitGame()
 	{
 		return;
 	}
+	
 	myRenderer.reset(SDL_CreateRenderer(myWindow.get(), 0, 0));
 	if (myRenderer == nullptr)
 	{
 		return;
 	}
+	
+	Galaxy.reset(new GameEntity(myRenderer.get(), "./images/StarGal.bmp"));
+	if (Galaxy == nullptr)
+	{
+		return;
+	}
+	Galaxy->SetRectValue(0, 0, WindWidth, WindHeight);
 
 	myPlayer.reset(new PlayerShip());
 	if (myPlayer != nullptr && myPlayer->IsPlayerAlive == true)
@@ -48,6 +57,14 @@ void Game::InitGame()
 		Score_M->LoadFont(myRenderer.get(),Score);
 		Score_M->SetRectValues(960,0, 35, 70);
 	}
+
+	GameOver_M.reset(new ScoreManager("./font/Alan_Sans/static/AlanSans-Regular.ttf", FontSize));
+	if (GameOver_M != nullptr)
+	{
+		GameOver_M->LoadFont(myRenderer.get(), GameOver);
+		GameOver_M->SetRectValues(700, 400, 500, 200);
+	}
+
 
 	enemySpawner.reset(new EnemySpawner());
 	if (enemySpawner != nullptr)
@@ -140,10 +157,9 @@ void Game::Update()
 }
 void Game::EnemySpawn()
 {
-	if (enemySpawner != nullptr)
+	if (enemySpawner != nullptr && myPlayer != nullptr && myPlayer->IsPlayerAlive == true)
 	{
 		enemySpawner->MoveEnemy(DeltaTime, myRenderer.get(),Score,WindWidth,WindHeight);
-
 	}
 }
 
@@ -255,6 +271,10 @@ void Game::Render()
 	{
 		SDL_SetRenderDrawColor(myRenderer.get(), 21, 21, 21, 255);
 		SDL_RenderClear(myRenderer.get());
+		if (Galaxy != nullptr)
+		{
+			Galaxy->Render(myRenderer.get());
+		}
 		if (myPlayer != nullptr)
 		{
 			if (myPlayer->IsPlayerAlive == true)
@@ -267,12 +287,15 @@ void Game::Render()
 		{
 			Score_M->Render(myRenderer.get());
 		}
-
+		if (myPlayer->IsPlayerAlive == false && GameOver_M != nullptr)
+		{
+			GameOver_M->Render(myRenderer.get());
+		}
 		if (enemySpawner != nullptr)
 		{
 			enemySpawner->Render(myRenderer.get());
 		}
-
+		
 		SDL_RenderPresent(myRenderer.get());
 	}
 }
