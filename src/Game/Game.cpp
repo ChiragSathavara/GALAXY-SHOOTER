@@ -264,20 +264,27 @@ void Game::BulletEnemyCollide()
 
 void Game::ParallaxScrolling()
 {
-	if (Galaxy != nullptr && Galaxy2 != nullptr)
+	if (myPlayer.get() == nullptr)
 	{
-		Galaxy.get()->GetTextureLoader()->SetPosX(Galaxy1x += 4);
-		Galaxy2.get()->GetTextureLoader()->SetPosX(Galaxy2x += 4);
-		
-		if (Galaxy.get()->GetTextureLoader()->GetPosX() > WindWidth)
+		return;
+	}
+	if (myPlayer->IsPlayerAlive == true)
+	{
+		if (Galaxy != nullptr && Galaxy2 != nullptr)
 		{
-			Galaxy1x = -1919;
-			std::cout << "Galaxy 1 reset scrolling" << std::endl;
-		}
-		if (Galaxy2.get()->GetTextureLoader()->GetPosX() > WindWidth)
-		{
-			Galaxy2x = -1919;
-			std::cout << "Galaxy 2 reset scrolling" << std::endl;
+			Galaxy.get()->GetTextureLoader()->SetPosX(Galaxy1x += 4);
+			Galaxy2.get()->GetTextureLoader()->SetPosX(Galaxy2x += 4);
+
+			if (Galaxy.get()->GetTextureLoader()->GetPosX() > WindWidth)
+			{
+				Galaxy1x = -1919;
+				std::cout << "Galaxy 1 reset scrolling" << std::endl;
+			}
+			if (Galaxy2.get()->GetTextureLoader()->GetPosX() > WindWidth)
+			{
+				Galaxy2x = -1919;
+				std::cout << "Galaxy 2 reset scrolling" << std::endl;
+			}
 		}
 	}
 }

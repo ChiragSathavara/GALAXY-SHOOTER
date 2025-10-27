@@ -17,7 +17,7 @@ void EnemySpawner::SetupEnemy(SDL_Renderer* myRenderer,int WindWidth, int WindHe
 	switch (randomnumber)
 	{
     	case 1:
-			ImageAddress = "./images/Comet.bmp";
+		    ImageAddress = "./images/Comet.bmp";
 		break;
 
 		case 2:
