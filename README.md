@@ -4,7 +4,7 @@ This is a Galaxy Space Shooter game built using SDL2, GLM, and C++.
 
 Take control of your PlayerShip to navigate the galaxy, avoid enemies, and destroy them with laser shots.
 
-Current Features-----------------------------------------------
+Features-----------------------------------------------
 
 * Player movement (up, down, left, right)
 
@@ -18,7 +18,5 @@ Current Features-----------------------------------------------
   
 * Game-Over and Parallax Scrolling
 
-  
-More Stuff Coming Soon-----------------------------------------
 
 
