@@ -45,11 +45,11 @@ private:
 	int PlayerPosY = 500;
 	int PlayerSize = 100;
 	int PlayerSpeed = 350;
-	int BulletSpeed = 1000;
+	int BulletSpeed = 700;
 	int SpawnBulletPosX = 80;
 	int SpawnBulletPosY = 35;
 
-	int BulletSize = 22;
+	int BulletSize = 80;
 
 	int windwidth = 0;
 };

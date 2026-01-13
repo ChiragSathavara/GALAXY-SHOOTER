@@ -23,7 +23,7 @@ private:
 	
 	
 	int EnemySize = 100;
-	int EnemySpeed = 400;
+	int EnemySpeed = 200;
 	float SpawnTime = 0;
 	float SpawnInterval = 2;
 };

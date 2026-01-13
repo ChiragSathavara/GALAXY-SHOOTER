@@ -31,7 +31,7 @@ void Game::InitGame()
 		return;
 	}
 	
-	myRenderer.reset(SDL_CreateRenderer(myWindow.get(), 0, 0));
+	myRenderer.reset(SDL_CreateRenderer(myWindow.get(), 0, SDL_RENDERER_ACCELERATED));
 	if (myRenderer == nullptr)
 	{
 		return;
@@ -54,7 +54,7 @@ void Game::InitGame()
 	myPlayer.reset(new PlayerShip());
 	if (myPlayer != nullptr && myPlayer->IsPlayerAlive == true)
 	{
-		myPlayer->Load(myRenderer.get(), "./images/SpaceShip.bmp");
+		myPlayer->Load(myRenderer.get(), "./images/m1.bmp");
 		myPlayer->SetRectValue(200, 500, Size, Size);
 	}
 
@@ -132,7 +132,7 @@ void Game::ProcessInput()
 }
 
 void Game::Update()
-{
+{                            
 	Uint32 TimeToDelay = MIL_SEC_FRAME - (SDL_GetTicks() - MIL_SEC_PREVIOUS_FRAME);
 	if (TimeToDelay > 0 && TimeToDelay <= MIL_SEC_FRAME)
 	{

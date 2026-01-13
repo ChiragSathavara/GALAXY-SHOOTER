@@ -8,7 +8,7 @@
 #include "Manager/Score/ScoreManager.h"
 
 const int FPS = 60;
-const float MIL_SEC_FRAME = 1000.0f / FPS;
+const float MIL_SEC_FRAME = 1000.0f / FPS; //16.67;
 
 class Game
 {

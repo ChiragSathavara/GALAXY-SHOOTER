@@ -71,7 +71,7 @@ void PlayerShip::SetupBullet(SDL_Renderer* myRen)
 {
 	if (IsPlayerAlive == true)
 	{
-		GameEntity* bullet = new GameEntity(myRen, "./images/FireBall.bmp");
+		GameEntity* bullet = new GameEntity(myRen, "./images/kamal.bmp");
 
 		int pX = PlayerPosX + SpawnBulletPosX;
 		int pY = PlayerPosY + SpawnBulletPosY;
