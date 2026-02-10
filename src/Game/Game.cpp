@@ -54,7 +54,7 @@ void Game::InitGame()
 	myPlayer.reset(new PlayerShip());
 	if (myPlayer != nullptr && myPlayer->IsPlayerAlive == true)
 	{
-		myPlayer->Load(myRenderer.get(), "./images/Trumpha-Photoroom.bmp");
+		myPlayer->Load(myRenderer.get(), "./images/SpaceShip.bmp");
 		myPlayer->SetRectValue(200, 500, Size, Size);
 	}
 
