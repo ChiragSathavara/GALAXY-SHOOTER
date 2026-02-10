@@ -14,7 +14,7 @@ void EnemySpawner::SetupEnemy(SDL_Renderer* myRenderer,int WindWidth, int WindHe
 	
 	std::string ImageAddress;
 	
-	ImageAddress = "./images/R1.bmp";
+	ImageAddress = "./images/2145.bmp";
 	
 	/*switch (randomnumber)
 	{
