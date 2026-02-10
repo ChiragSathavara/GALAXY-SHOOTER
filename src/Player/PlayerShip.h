@@ -49,7 +49,7 @@ private:
 	int SpawnBulletPosX = 80;
 	int SpawnBulletPosY = 35;
 
-	int BulletSize = 80;
+	int BulletSize = 20;
 
 	int windwidth = 0;
 };
